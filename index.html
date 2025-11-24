@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Generator System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>AuctionGen</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-section="setup">
+                    <span class="icon">⚙️</span> Setup Auction
+                </li>
+                <li class="nav-item" data-section="players">
+                    <span class="icon">👥</span> Players Panel
+                </li>
+                <li class="nav-item" data-section="spinner">
+                    <span class="icon">🎡</span> Spin Wheeler
+                </li>
+                <li class="nav-item" data-section="expenses">
+                    <span class="icon">💰</span> Team Expenses
+                </li>
+                <li class="nav-item" data-section="reports">
+                    <span class="icon">📊</span> Reports
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            
+            <!-- Section 1: Setup Auction -->
+            <section id="setup" class="section active">
+                <div class="glass-card">
+                    <h1>Setup Auction</h1>
+                    <form id="setup-form">
+                        <div class="form-group">
+                            <label>Trophy Name</label>
+                            <input type="text" id="trophy-name" placeholder="Enter Trophy Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Teams</label>
+                            <div id="teams-container">
+                                <div class="team-input-group">
+                                    <input type="text" class="team-name" placeholder="Team Name" required>
+                                </div>
+                            </div>
+                            <button type="button" id="add-team-btn" class="btn-secondary">+ Add Team</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Players</label>
+                            <input type="number" id="total-players" placeholder="e.g. 50" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Team Fund Value (LKR)</label>
+                            <input type="number" id="team-fund" placeholder="e.g. 1000000" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Submit Setup</button>
+                            <button type="button" id="reset-setup-btn" class="btn-danger">Reset / Delete Setup</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Section 2: Players Panel -->
+            <section id="players" class="section hidden">
+                <div class="glass-card">
+                    <h1>Players Panel</h1>
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="all-players">All Players</button>
+                        <button class="tab-btn" data-tab="sold-players">Sold Players</button>
+                        <button class="tab-btn" data-tab="unsold-players">Unsold Players</button>
+                    </div>
+
+                    <div id="all-players" class="tab-content active">
+                        <div class="upload-area">
+                            <input type="file" id="player-upload" multiple accept="image/*" hidden>
+                            <button id="upload-btn" class="btn-secondary">Add Players (Images)</button>
+                        </div>
+                        <div id="all-players-list" class="players-grid"></div>
+                    </div>
+
+                    <div id="sold-players" class="tab-content hidden">
+                        <div id="sold-players-list" class="players-grid"></div>
+                    </div>
+
+                    <div id="unsold-players" class="tab-content hidden">
+                        <div id="unsold-players-list" class="players-grid"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Spin Wheeler -->
+            <section id="spinner" class="section hidden">
+                <div class="glass-card spinner-layout">
+                    <div class="wheel-container">
+                        <div class="arrow">⬇</div>
+                        <canvas id="wheel-canvas" width="500" height="500"></canvas>
+                        <button id="spin-btn" class="spin-button">SPIN</button>
+                    </div>
+                    <div class="player-reveal hidden" id="player-reveal-modal">
+                        <h2 id="revealed-player-name">Player Name</h2>
+                        <img id="revealed-player-img" src="" alt="Player">
+                        <div class="action-buttons">
+                            <div class="purchase-form">
+                                <select id="buyer-team">
+                                    <option value="">Select Team</option>
+                                </select>
+                                <input type="number" id="bid-amount" placeholder="Amount">
+                                <button id="confirm-sell-btn" class="btn-primary">SOLD</button>
+                            </div>
+                            <button id="mark-unsold-btn" class="btn-warning">Unsold</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Team Expenses -->
+            <section id="expenses" class="section hidden">
+                <div class="glass-card">
+                    <h1>Team Expenses & Balance</h1>
+                    <div id="teams-dashboard" class="dashboard-grid">
+                        <!-- Team cards will be injected here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Reports -->
+            <section id="reports" class="section hidden">
+                <div class="glass-card">
+                    <h1>Reports Summary</h1>
+                    <button id="export-csv-btn" class="btn-secondary">Export to CSV</button>
+                    <div class="table-container">
+                        <table id="reports-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Sold To</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reports-body">
+                                <!-- Rows injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
